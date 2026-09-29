@@ -1,0 +1,42 @@
+/* Mobile footer height fix — the shared footer template's top padding (60px)
+   and logo width (200px) are disproportionate on narrow viewports, making the
+   footer feel much longer than its content needs. Loaded after Elementor's
+   generated CSS so these win on source order without !important. */
+@media (max-width: 767px) {
+  /* Elementor's own generated rule is `.elementor-961 .elementor-element.elementor-element-e56a0ee`
+     (3 classes) — more specific than a bare class selector, so it wins on
+     specificity regardless of source order. !important is the correct tool
+     here since this file's whole purpose is overriding page-builder output. */
+  .elementor-element-e56a0ee {
+    padding-top: 32px !important;
+    padding-bottom: 10px !important;
+  }
+  .elementor-element-a0abe0c img {
+    width: 140px !important;
+  }
+}
+
+/* Mobile nav-menu overlay positioning.
+   The official Elementor Pro nav-menu bundle is in place, but on this httrack
+   mirror the header widget is duplicated (several stacked toggles), so the
+   bundle's JS mis-computes the dropdown position and writes an inline
+   `left:-310px` that throws the panel off-screen. !important beats that inline
+   value (inline styles carry no !important), pinning the panel as the full-width
+   overlay the height rule was designed for regardless of what the bundle sets. */
+@media (max-width: 1024px) {
+  .elementor-nav-menu--toggle .elementor-menu-toggle.elementor-active + .elementor-nav-menu__container.elementor-nav-menu--dropdown {
+    position: fixed !important;
+    top: 76px !important;
+    left: 0 !important;
+    right: 0 !important;
+    width: 100% !important;
+    margin-top: 0 !important;
+    max-height: calc(100vh - 76px) !important;
+    background: #fff;
+    box-shadow: 0 12px 24px rgba(0, 0, 0, 0.12);
+  }
+  .elementor-menu-toggle {
+    position: relative;
+    z-index: 9998;
+  }
+}
